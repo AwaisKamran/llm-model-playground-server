@@ -4,3 +4,6 @@ openai
 python-dotenv
 anthropic
 xai_grok_sdk
+gunicorn
+grpcio
+grpcio-tools
