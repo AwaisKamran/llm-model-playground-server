@@ -4,5 +4,3 @@ openai
 python-dotenv
 anthropic
 xai_grok_sdk
-fastapi
-gunicorn
