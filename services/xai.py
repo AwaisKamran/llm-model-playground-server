@@ -1,4 +1,5 @@
 import os
+import json
 import grpc
 from xai_sdk import AsyncClient
 from xai_sdk.chat import system, user
@@ -21,7 +22,8 @@ async def call_xai_service(prompt: str, model: str = "grok-3"):
 
     try:
         response = await chat.sample()
-        return {"source": "xai", "content": response.content}
+        print(response)
+        return {"source": "xai", "content": response.content, "token_usage": response.usage.total_tokens }
 
     except grpc.aio.AioRpcError as e:
         code = e.code().name if hasattr(e, "code") else "UNKNOWN"

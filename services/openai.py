@@ -28,7 +28,8 @@ async def call_openai_service(prompt: str) -> dict:
         )
         return {
             "source": "openai",
-            "content": response.choices[0].message.content
+            "content": response.choices[0].message.content,
+            "token_usage": response.usage.total_tokens
         }
     except openai.APIStatusError as e:
         # Catch specific API errors

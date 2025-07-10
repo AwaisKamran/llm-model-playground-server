@@ -29,7 +29,7 @@ async def call_anthropic_service(prompt: str) -> dict:
                 {"role": "user", "content": prompt}
             ],
         )
-        return {"source": "anthropic", "content": response.content[0].text}
+        return {"source": "anthropic", "content": response.content[0].text, "token_usage": (response.usage.input_tokens + response.usage.output_tokens)}
     except anthropic.APIError as e:
         # Handle API errors (e.g., invalid request, rate limits)
         return {"source": "anthropic", "error": f"Anthropic API Error: {e}"}
