@@ -1,0 +1,28 @@
+# Environment
+# Ignore the virtual environment directory to avoid committing project-specific dependencies.
+venv/
+.venv/
+env/
+
+# Environment Variables
+# Ignore the .env file which contains sensitive API keys and secrets.
+# It's a good practice to commit a .env.example file with placeholder values.
+.env
+
+# Python
+# Ignore Python bytecode files, caches, and logs.
+__pycache__/
+*.py[cod]
+*.log
+
+# Build & Distribution
+# Ignore packaging and distribution artifacts.
+build/
+dist/
+*.egg-info/
+
+# IDE / Editor specific
+# Ignore configuration files from common editors like VSCode and JetBrains IDEs.
+.vscode/
+.idea/
+.DS_Store
