@@ -36,7 +36,11 @@ OPENAI_API_KEY="your_openai_api_key_here"
 ### 3. Run the Server
 You can run the server directly using Python. It will be accessible at `http://127.0.0.1:8000`.
 ```bash
-python server.py
+fastapi dev server.py
+```
+OR
+```bash
+uvicorn server:app --host=0.0.0.0 --port=8000
 ```
 The server is configured to auto-reload when you make changes to the code, making development easier.
 
