@@ -24,6 +24,7 @@ app = FastAPI(
 # Define allowed origins for CORS
 origins = [
     "http://localhost:8080",
+    "https://triple-chat-echo.vercel.app/",
 ]
 
 # Add CORS middleware to the application
