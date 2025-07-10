@@ -51,7 +51,7 @@ async def create_completion(request: ChatRequest):
     raise HTTPException(status_code=400, detail="Invalid provider specified.")
 
 
-if __name__ == "__main__":
-    # This allows you to run the server directly with `python server.py`
-    # The `reload=True` flag is for development, so the server restarts on code changes.
-    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
+# if __name__ == "__main__":
+#     # This allows you to run the server directly with `python server.py`
+#     # The `reload=True` flag is for development, so the server restarts on code changes.
+#     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
