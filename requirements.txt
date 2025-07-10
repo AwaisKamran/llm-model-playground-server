@@ -1,6 +1,6 @@
-fastapi==0.111.0
-uvicorn[standard]==0.29.0
-openai==1.30.1
-python-dotenv==1.0.1
-anthropic==0.27.0
-xai-sdk==0.0.6
+fastapi
+uvicorn[standard]
+openai
+python-dotenv
+anthropic
+xai_grok_sdk
