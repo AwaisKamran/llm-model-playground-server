@@ -1,5 +1,6 @@
 from typing import Optional, Literal
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 from dotenv import load_dotenv
@@ -18,6 +19,20 @@ app = FastAPI(
     title="FastAPI Server",
     description="A basic template for a FastAPI server.",
     version="0.1.0",
+)
+
+# Define allowed origins for CORS
+origins = [
+    "http://localhost:8080",
+]
+
+# Add CORS middleware to the application
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
 )
 
 class ChatRequest(BaseModel):
