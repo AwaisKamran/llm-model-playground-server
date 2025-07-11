@@ -81,7 +81,7 @@ async def create_completion(request: ChatRequest):
     # validation, but it's good practice to handle it defensively.
     raise HTTPException(status_code=400, detail="Invalid provider specified.")
 
-@app.post("/save-chat")
+@app.post("/v1/chat/save")
 async def save_chat(item: Item):
     try:
         db = mongoClient["llm-playground-data"]
