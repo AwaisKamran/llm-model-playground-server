@@ -4,6 +4,9 @@ import grpc
 from xai_sdk import AsyncClient
 from xai_sdk.chat import system, user
 
+def calculate_price(input_tokens, output_tokens):
+    return ((input_tokens/1000000)*3) + (15 * (output_tokens/1000000)) 
+
 async def call_xai_service(prompt: str, model: str = "grok-3"):
     """
     Async call to xAI Grok; returns:
@@ -23,7 +26,12 @@ async def call_xai_service(prompt: str, model: str = "grok-3"):
     try:
         response = await chat.sample()
         print(response)
-        return {"source": "xai", "content": response.content, "token_usage": response.usage.total_tokens }
+        return {
+            "source": "xai", 
+            "content": response.content, 
+            "token_usage": response.usage.total_tokens, 
+            "price": calculate_price(response.usage.prompt_tokens, response.usage.completion_tokens)
+        }
 
     except grpc.aio.AioRpcError as e:
         code = e.code().name if hasattr(e, "code") else "UNKNOWN"

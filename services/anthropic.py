@@ -1,5 +1,9 @@
 import anthropic
 
+
+def calculate_price(input_tokens, output_tokens):
+    return ((input_tokens/1000000) * 3) + (15 * (output_tokens/1000000)) 
+
 # The Anthropic client automatically looks for the ANTHROPIC_API_KEY environment variable.
 # Make sure it is set in your environment or a .env file.
 try:
@@ -29,7 +33,12 @@ async def call_anthropic_service(prompt: str) -> dict:
                 {"role": "user", "content": prompt}
             ],
         )
-        return {"source": "anthropic", "content": response.content[0].text, "token_usage": (response.usage.input_tokens + response.usage.output_tokens)}
+        return {
+            "source": "anthropic", 
+            "content": response.content[0].text, 
+            "token_usage": (response.usage.input_tokens + response.usage.output_tokens),
+            "price": calculate_price(response.usage.input_tokens, response.usage.output_tokens)
+        }
     except anthropic.APIError as e:
         # Handle API errors (e.g., invalid request, rate limits)
         return {"source": "anthropic", "error": f"Anthropic API Error: {e}"}

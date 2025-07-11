@@ -1,8 +1,8 @@
 import openai
 import os
 
-# Set API key (optional if already set in environment or .env file)
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+def calculate_price(input_tokens, output_tokens):
+    return ((input_tokens/1000000) * 0.15) + (0.60 * (output_tokens/1000000)) 
 
 # Initialize the OpenAI client
 try:
@@ -23,13 +23,14 @@ async def call_openai_service(prompt: str) -> dict:
 
     try:
         response = await client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
         )
         return {
             "source": "openai",
             "content": response.choices[0].message.content,
-            "token_usage": response.usage.total_tokens
+            "token_usage": response.usage.total_tokens,
+            "price": calculate_price(response.usage.prompt_tokens, response.usage.completion_tokens)
         }
     except openai.APIStatusError as e:
         # Catch specific API errors
