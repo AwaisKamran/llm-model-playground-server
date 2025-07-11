@@ -30,7 +30,7 @@ try:
     mongoClient.admin.command('ping')
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
-    print(e)
+    print(e)    
 
 # Define allowed origins for CORS
 origins = [
@@ -52,6 +52,9 @@ class ChatRequest(BaseModel):
     """Defines the request body for the chat endpoint."""
     prompt: str
     provider: Literal["openai", "anthropic", "xai"]
+    
+class Item(BaseModel):
+    data: dict  # Accepts any JSON object under 'data'
 
 
 @app.get("/health")
@@ -78,6 +81,15 @@ async def create_completion(request: ChatRequest):
     # validation, but it's good practice to handle it defensively.
     raise HTTPException(status_code=400, detail="Invalid provider specified.")
 
+@app.post("/save-chat")
+async def save_chat(item: Item):
+    try:
+        db = mongoClient["llm-playground-data"]
+        collection = db["llm-playground-collection"]
+        result = collection.insert_one(item.data)
+        return {"status": "success", "id": str(result.inserted_id)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # if __name__ == "__main__":
 #     # This allows you to run the server directly with `python server.py`
