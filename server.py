@@ -2,8 +2,10 @@ from typing import Optional, Literal
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import uvicorn
 from dotenv import load_dotenv
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+import uvicorn
 
 # Import the service functions
 from services.openai import call_openai_service
@@ -21,6 +23,15 @@ app = FastAPI(
     version="0.1.0",
 )
 
+# Mongo DB Client
+uri = "mongodb+srv://awaiskamran:_CrrfQZTZ$6$Y-P@llm-playground.4a1zyij.mongodb.net/?retryWrites=true&w=majority&appName=llm-playground"
+mongoClient = MongoClient(uri, server_api=ServerApi('1'))
+try:
+    mongoClient.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
 # Define allowed origins for CORS
 origins = [
     "http://localhost:8080",
@@ -36,6 +47,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+# Data Models
 class ChatRequest(BaseModel):
     """Defines the request body for the chat endpoint."""
     prompt: str

@@ -8,3 +8,4 @@ xai-sdk
 gunicorn
 grpcio
 grpcio-tools
+pymongo[srv]
