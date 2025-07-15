@@ -27,7 +27,6 @@ async def call_xai_service(prompt: str, modelParameters: ModelParameters, model:
 
     try:
         response = await chat.sample()
-        print(response)
         return {
             "source": "xai", 
             "content": response.content, 

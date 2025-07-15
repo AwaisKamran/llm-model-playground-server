@@ -12,7 +12,7 @@ class ModelParameters(BaseModel):
 class ChatRequest(BaseModel):
     """Defines the request body for the chat endpoint."""
     prompt: str
-    provider: Literal[OPENAI, ANTHROPIC, XAI]
+    provider: Literal[OPENAI, ANTHROPIC, XAI] # type: ignore
     modelParameters: ModelParameters
     model: Optional[str] = Field(
         None,
