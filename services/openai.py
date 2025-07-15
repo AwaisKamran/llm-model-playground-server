@@ -27,7 +27,7 @@ async def call_openai_service(prompt: str, modelParameters: ModelParameters, mod
         response = await client.chat.completions.create(
             model=model,
             temperature=modelParameters.temperature,
-            top_p=modelParameters.top_p,
+            top_p=modelParameters.topP,
             messages=[{"role": "user", "content": prompt}],
         )
         return {

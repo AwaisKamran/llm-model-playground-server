@@ -7,7 +7,7 @@ XAI = "xai"
 
 class ModelParameters(BaseModel):
     temperature: float 
-    top_p: float
+    topP: float
 
 class ChatRequest(BaseModel):
     """Defines the request body for the chat endpoint."""

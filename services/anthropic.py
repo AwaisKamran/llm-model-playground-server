@@ -30,7 +30,7 @@ async def call_anthropic_service(prompt: str, modelParameters: ModelParameters, 
             model=model,
             max_tokens=1024,
             temperature=modelParameters.temperature,
-            top_p=modelParameters.top_p,
+            top_p=modelParameters.topP,
             messages=[
                 {"role": "user", "content": prompt}
             ],
