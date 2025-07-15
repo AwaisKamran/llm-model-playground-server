@@ -1,13 +1,13 @@
 import os
-import json
 import grpc
+from utils.model import ModelParameters
 from xai_sdk import AsyncClient
 from xai_sdk.chat import system, user
 
 def calculate_price(input_tokens, output_tokens):
     return ((input_tokens/1000000)*3) + (15 * (output_tokens/1000000)) 
 
-async def call_xai_service(prompt: str, model: str = "grok-3"):
+async def call_xai_service(prompt: str, modelParameters: ModelParameters, model: str = "grok-3"):
     """
     Async call to xAI Grok; returns:
       - {"source": "xai", "content": "..."} on success
@@ -20,6 +20,8 @@ async def call_xai_service(prompt: str, model: str = "grok-3"):
     client = AsyncClient(api_key=api_key)
     chat = client.chat.create(
         model=model,
+        temperature=modelParameters.temperature,
+        top_p=modelParameters.top_p,
         messages=[system("You are Grok."), user(prompt)]
     )
 

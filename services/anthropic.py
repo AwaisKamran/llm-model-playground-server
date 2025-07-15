@@ -1,5 +1,5 @@
 import anthropic
-
+from utils.model import ModelParameters
 
 def calculate_price(input_tokens, output_tokens):
     return ((input_tokens/1000000) * 3) + (15 * (output_tokens/1000000)) 
@@ -14,7 +14,7 @@ except anthropic.AnthropicError as e:
     # Calls to this service will fail gracefully.
     client = None
 
-async def call_anthropic_service(prompt: str) -> dict:
+async def call_anthropic_service(prompt: str, modelParameters: ModelParameters, model: str = "claude-3-sonnet-20240229") -> dict:
     """
     Makes an asynchronous call to the Anthropic API to get a chat completion.
     """
@@ -27,8 +27,10 @@ async def call_anthropic_service(prompt: str) -> dict:
     try:
         # Use the recommended 'messages' API for newer models and a more consistent structure.
         response = await client.messages.create(
-            model="claude-3-sonnet-20240229",  # A powerful and fast Claude 3 model
+            model=model,
             max_tokens=1024,
+            temperature=modelParameters.temperature,
+            top_p=modelParameters.top_p,
             messages=[
                 {"role": "user", "content": prompt}
             ],

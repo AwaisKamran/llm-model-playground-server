@@ -1,6 +1,8 @@
 import openai
 import os
 
+from utils.model import ModelParameters
+
 def calculate_price(input_tokens, output_tokens):
     return ((input_tokens/1000000) * 0.15) + (0.60 * (output_tokens/1000000)) 
 
@@ -11,7 +13,7 @@ except Exception as e:
     print(f"Failed to initialize OpenAI client: {e}")
     client = None
 
-async def call_openai_service(prompt: str) -> dict:
+async def call_openai_service(prompt: str, modelParameters: ModelParameters, model: str="gpt-4o-mini") -> dict:
     """
     Makes an asynchronous call to the OpenAI API to get a chat completion.
     """
@@ -23,7 +25,9 @@ async def call_openai_service(prompt: str) -> dict:
 
     try:
         response = await client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=model,
+            temperature=modelParameters.temperature,
+            top_p=modelParameters.top_p,
             messages=[{"role": "user", "content": prompt}],
         )
         return {
