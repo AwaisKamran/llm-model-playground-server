@@ -24,7 +24,7 @@ app = FastAPI(
 )
 
 # Mongo DB Client
-connect_to_mongodb()
+mongoClient = connect_to_mongodb()
 
 # Define allowed origins for CORS
 origins = [
@@ -68,14 +68,10 @@ async def create_completion(request: ChatRequest):
 @app.post("/v1/chat/save")
 async def save_chat(message: ChatMessage):
     try:
-        mongoClient = get_mongodb_client()
-        if(mongoClient is not None):
-            db = mongoClient["llm-playground-data"]
-            collection = db["llm-playground-collection"]
-            result = collection.insert_one(message.data)
-            return {"status": "success", "id": str(result.inserted_id)}
-        else:
-            print("Error - MongoClient is not defined")
+        db = mongoClient["llm-playground-data"]
+        collection = db["llm-playground-collection"]
+        result = collection.insert_one(message.data)
+        return {"status": "success", "id": str(result.inserted_id)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

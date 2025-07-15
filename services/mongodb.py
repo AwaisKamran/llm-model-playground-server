@@ -12,6 +12,3 @@ def connect_to_mongodb():
     except Exception as e:
         print(e)
     return mongoClient
-
-def get_mongodb_client():
-    return mongoClient
