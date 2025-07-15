@@ -27,7 +27,7 @@ mongoClient = connect_to_mongodb()
 # Define allowed origins for CORS
 origins = [
     "http://localhost:8080",
-    "https://triple-chat-echo.vercel.app",
+    "https://llm-model-playground-app.vercel.app",
 ]
 
 # Add CORS middleware to the application
