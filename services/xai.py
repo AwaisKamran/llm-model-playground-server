@@ -19,7 +19,7 @@ async def call_xai_service(prompt: str, modelParameters: ModelParameters, model:
 
     client = AsyncClient(api_key=api_key)
     chat = client.chat.create(
-        model=model,
+        model=model or "grok-3",
         temperature=modelParameters.temperature,
         top_p=modelParameters.topP,
         messages=[system("You are Grok."), user(prompt)]

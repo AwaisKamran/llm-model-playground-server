@@ -27,7 +27,7 @@ async def call_anthropic_service(prompt: str, modelParameters: ModelParameters, 
     try:
         # Use the recommended 'messages' API for newer models and a more consistent structure.
         response = await client.messages.create(
-            model=model,
+            model=model or "claude-3-sonnet-20240229",
             max_tokens=1024,
             temperature=modelParameters.temperature,
             top_p=modelParameters.topP,

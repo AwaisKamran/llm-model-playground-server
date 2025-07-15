@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-from typing import Literal
+from pydantic import BaseModel, Field
+from typing import Literal, Optional
 
 OPENAI = "openai"
 ANTHROPIC = "anthropic"
@@ -14,7 +14,10 @@ class ChatRequest(BaseModel):
     prompt: str
     provider: Literal[OPENAI, ANTHROPIC, XAI]
     modelParameters: ModelParameters
-    model: str
+    model: Optional[str] = Field(
+        None,
+        description="Specify a model override, e.g., 'gpt-4o-mini | claude-3-sonnet-20240229 | grok-3'"
+    )
     
 class ChatMessage(BaseModel):
     data: dict 
