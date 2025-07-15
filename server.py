@@ -1,9 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from services.mongodb import connect_to_mongodb, get_mongodb_client
+from services.mongodb import connect_to_mongodb
 from utils.model import ANTHROPIC, OPENAI, XAI, ChatMessage, ChatRequest
 import uvicorn
 
