@@ -16,8 +16,8 @@ load_dotenv()
 # Initialize the FastAPI app
 # This instance will be the main point of interaction to create all your API.
 app = FastAPI(
-    title="FastAPI Server",
-    description="A basic template for a FastAPI server.",
+    title="LLM Playground server",
+    description="This application serves as a server for the `LLM Playground App`.",
     version="0.1.0",
 )
 
@@ -26,8 +26,8 @@ mongoClient = connect_to_mongodb()
 
 # Define allowed origins for CORS
 origins = [
-    "http://localhost:8080",
-    "https://llm-model-playground-app.vercel.app",
+    "http://localhost:8080", # Localhost Frontend URL
+    "https://llm-model-playground-app.vercel.app", # Frontend Production URL
 ]
 
 # Add CORS middleware to the application
